@@ -1,0 +1,33 @@
+.vscode
+**/*.db*
+# Phoenix artifacts
+/_build/
+/deps/
+/priv/static/
+
+# Compiled output
+/ebin/
+/rel/
+/*.beam
+
+# Dependency directories
+/_build/
+/deps/
+
+# Testing artifacts
+/.elixir_ls/
+/.eunit/
+/.rebar/
+/cover/
+
+# Environment variables
+/.env
+
+# Editor-specific files
+.vscode/
+*.swp
+*.swo
+
+# Mac specific files
+.DS_Store
+
