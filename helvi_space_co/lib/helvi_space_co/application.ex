@@ -7,6 +7,10 @@ defmodule HelviSpaceCo.Application do
 
   @impl true
   def start(_type, _args) do
+    Confex.resolve_env!(:helvi_space_co)
+
+    # Config.import_config "../../config/secrets.exs"
+
     children = [
       # Start the Telemetry supervisor
       HelviSpaceCoWeb.Telemetry,

@@ -2,22 +2,27 @@ defmodule HelviSpaceCoWeb.Router do
   use HelviSpaceCoWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_live_flash
-    plug :put_root_layout, html: {HelviSpaceCoWeb.Layouts, :root}
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_live_flash)
+    plug(:put_root_layout, html: {HelviSpaceCoWeb.Layouts, :root})
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json"])
   end
 
   scope "/", HelviSpaceCoWeb do
-    pipe_through :browser
+    pipe_through(:browser)
 
-    get "/", PageController, :home
+    get("/", PageController, :home)
+    get("/ships", ShipsController, :index)
+    get("/ship/:symbol", ShipsController, :show)
+    get("/contracts", ContractsController, :index)
+    get("/settings", SettingsController, :show)
+    get("/settings/register-agent", SettingsController, :register_agent)
   end
 
   # Other scopes may use custom stacks.
@@ -35,10 +40,10 @@ defmodule HelviSpaceCoWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/dev" do
-      pipe_through :browser
+      pipe_through(:browser)
 
-      live_dashboard "/dashboard", metrics: HelviSpaceCoWeb.Telemetry
-      forward "/mailbox", Plug.Swoosh.MailboxPreview
+      live_dashboard("/dashboard", metrics: HelviSpaceCoWeb.Telemetry)
+      forward("/mailbox", Plug.Swoosh.MailboxPreview)
     end
   end
 end

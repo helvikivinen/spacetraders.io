@@ -1,0 +1,64 @@
+<h1>Accepted Contracts</h1>
+—
+<h1>Available Contracts</h1>
+<%= for contract <- @contracts["data"] do %>
+<div class="component contract">
+    <div class="header">
+        <div class="title">
+            <div><%= contract["type"] %> Contract</div>
+            <div class="subtitle"><span><%= contract["id"] %></span></div>
+        </div>
+
+        <div class="faction"><%= contract["factionSymbol"] %></div>
+        
+    </div>
+    <div class="body">
+        <ul>
+            <%= if contract["accepted"] do %>
+            <li>Accepted</li>
+            <% else %>
+            <li>Not yet accepted</li>
+            <% end %>
+
+            <li>Deadline to accept: <%= contract["deadlineToAccept"] %></li>
+            <li>Expires: <%= contract["expiration"] %></li>
+            <li>Deadline: <%= contract["terms"]["deadline"] %></li>
+        </ul>
+
+        <ul>
+            <li>Deliver:
+                <ul>
+                    <%= for deliver <- contract["terms"]["deliver"] do %>
+                    <li>Destination: <%= deliver["destinationSymbol"] %></li>
+                    <li>Item: <%= deliver["tradeSymbol"] %> (<%= deliver["unitsFulfilled"] %>/<%= deliver["unitsRequired"] %>)</li>
+                    <% end %>
+                </ul>
+            </li>
+        </ul>
+        <ul>
+            <li>Payment:
+                <ul>
+                    <li>On Accepted: <div class="component credits theme-inline"><div class="sprite coin"></div><%= contract["terms"]["payment"]["onAccepted"] %></div></li>
+                    <li>On Fulfilled: <div class="component credits theme-inline"><div class="sprite coin"></div><%= contract["terms"]["payment"]["onFulfilled"] %></div></li>
+                </ul>
+            </li>
+        </ul>
+
+        <textarea><%= inspect contract %></textarea>
+    </div>
+    <div class="footer">
+        <div></div>
+        <div class="fulfilled">
+        <%= if contract["fulfilled"] do %>
+        FULFILLED
+        <% else %>
+        NOT YET FULFILLED
+        <% end %>
+        </div>
+    </div>
+    <div class="actions">
+        <button class="button theme-neutral">Decline Contract</button>
+        <button class="button theme-positive">Accept Contract</button>
+    </div>
+</div>
+<% end %>

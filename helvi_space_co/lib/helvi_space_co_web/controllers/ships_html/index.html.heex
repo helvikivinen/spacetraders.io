@@ -1,0 +1,15 @@
+<h1>Ships</h1>
+<div class="component ships-list">
+    <%= for ship <- @ships["data"] do %>
+    <div class="component ship">
+        <.link navigate={~p"/ship/#{ship["symbol"]}"}>
+        <div class="sprite ship"></div>
+        <div class="name"><%= ship["symbol"] %></div>
+        </.link>
+
+    </div>
+
+    
+    <% end %>
+
+</div>
